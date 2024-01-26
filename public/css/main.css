@@ -1,0 +1,20 @@
+#main button{
+    cursor: pointer;
+}
+span{
+    color: white;
+    padding: 0 1rem;
+    border-radius: 3rem;
+}
+.get{
+    background-color: green;
+}
+.post{
+    background-color: darkgoldenrod;
+}
+.put{
+    background-color: darkcyan;
+}
+.delete{
+    background-color: lightcoral;
+}

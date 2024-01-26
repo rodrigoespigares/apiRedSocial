@@ -1,0 +1,58 @@
+[
+    {
+        "id":"publicaciones",
+        "show":false,
+        "method":"GET",
+        "name":"/publicaciones",
+        "description":"Obtiene todas las publicaciones de la base de datos.",
+        "respuestas":{
+            "202":"Lista completa",
+            "404":"No hay ponentes"
+        }
+    },
+    {
+        "id":"publicacion",
+        "show":false,
+        "method":"GET",
+        "name":"/publicacion/:id",
+        "description":"Obtiene una publicacion en concreto",
+        "respuestas":{
+            "202":"Obtiene una publicacion",
+            "404":"No existe la publicacion"
+        }
+    },
+    {
+        "id":"creacion",
+        "show":false,
+        "method":"POST",
+        "name":"/publicacion",
+        "description":"Crea una nueva publicacion",
+        "respuestas":{
+            "202":"Publicacion completadoa",
+            "404":"No se ha completado la publicacion",
+            "500":"No se ha completado la publicacion por errores de validación"
+        }
+    },
+    {
+        "id":"delete",
+        "method":"DELETE",
+        "name":"/publicacion/:id",
+        "description":"Elimina una publicacion.",
+        "respuestas":{
+            "202":"Elimina la publicacion",
+            "404":"No se puede eliminar esta publicación"
+        }
+    },
+    {
+        "id":"edit",
+        "show":false,
+        "method":"PUT",
+        "name":"/publicacion/:id",
+        "description":"Edita una publicacion.",
+        "respuestas":{
+            "202":"Modificación completada",
+            "404":"No se ha completado la modificación",
+            "500":"No se ha completado la modificación por errores de validación"
+        }
+    }    
+]

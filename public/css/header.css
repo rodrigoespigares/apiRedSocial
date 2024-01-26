@@ -1,0 +1,23 @@
+header{
+    border-right: .1rem solid var(--primary);
+    padding: 2rem;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+header a{
+    text-decoration: none;
+    color: var(--secondary);
+}
+header h2{
+    color: var(--primary);
+}
+header nav{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+nav a{
+    color: var(--secondary);
+}

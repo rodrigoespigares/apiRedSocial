@@ -1,0 +1,6 @@
+footer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border-top: .1rem solid var(--primary);
+}
