@@ -88,36 +88,6 @@
         
             return $usuario;
         }
-        public function addIntento($id) {
-            try {
-
-                $this->sql = $this->conection->prepareSQL("UPDATE usuarios SET acceder = acceder + 1 WHERE id = :id;");
-                $this->sql->bindValue(":id", $id);
-                $this->sql->execute();
-                $usuarioData = $this->sql->fetch(PDO::FETCH_ASSOC);
-                $this->sql->closeCursor();
-                $usuario = $usuarioData ?: null;
-            } catch (PDOException $e) {
-                $usuario = $e->getMessage();
-            }
-        
-            return $usuario;
-        }
-        public function removeIntento($id) {
-            try {
-
-                $this->sql = $this->conection->prepareSQL("UPDATE usuarios SET acceder = 0 WHERE id = :id;");
-                $this->sql->bindValue(":id", $id);
-                $this->sql->execute();
-                $usuarioData = $this->sql->fetch(PDO::FETCH_ASSOC);
-                $this->sql->closeCursor();
-                $usuario = $usuarioData ?: null;
-            } catch (PDOException $e) {
-                $usuario = $e->getMessage();
-            }
-        
-            return $usuario;
-        }
         public function checkToken($token) :bool {
             try {
 
@@ -134,8 +104,10 @@
         }
         public function confirmado($email) : bool {
             try {
-                $this->sql = $this->conection->prepareSQL("UPDATE usuarios SET confirmado = 1 WHERE email = :email;");
+                $time = date('Y-m-d H:i:s', time()-2300);
+                $this->sql = $this->conection->prepareSQL("UPDATE usuarios SET confirmado = 1, token_exp = :token_exp WHERE email = :email;");
                 $this->sql->bindValue(":email", $email);
+                $this->sql->bindValue(":token_exp",$time);
                 $this->sql->execute();
                 $this->sql->closeCursor();
                 $value = true;

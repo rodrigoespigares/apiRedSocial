@@ -1,16 +1,16 @@
 <?php 
     namespace Controllers;
-    use Services\PonenteService;
+    use Services\PublicacionesService;
     use Lib\Pages;
     use Lib\ResponseHttp;
-use Models\Ponente;
+    use Models\Publicaciones;
 
-    class ApiPonenteController{
-        private PonenteService $service;
+    class PublicacionesController{
+        private PublicacionesService $service;
         private Pages $pages;
         public function __construct()
         {
-            $this->service = new PonenteService();
+            $this->service = new PublicacionesService();
             $this->pages = new Pages();
         }
         /**
@@ -54,7 +54,7 @@ use Models\Ponente;
             ResponseHttp::setHeaders("POST");
             $data = json_decode(file_get_contents("php://input"));
             $errores = [];
-            Ponente::validation($data,$errores);
+            Publicaciones::validation($data,$errores);
             if(empty($errores)){
                 if($this->service->register($data)){
                     $json["head"][]=ResponseHttp::statusMessage(202,1);
@@ -92,7 +92,7 @@ use Models\Ponente;
             ResponseHttp::setHeaders("PUT");
             $data = json_decode(file_get_contents("php://input"));
             $errores = [];
-            Ponente::validation($data,$errores);
+            Publicaciones::validation($data,$errores);
             if(empty($errores)){
                 if($this->service->edit($id,$data)){
                     $json["head"][]=ResponseHttp::statusMessage(202,1);

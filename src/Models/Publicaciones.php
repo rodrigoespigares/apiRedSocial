@@ -4,7 +4,7 @@ namespace Models;
 
 use Lib\Validar;
 
-class Publicacion
+class Publicaciones
 {
     protected static $errores;
     public function __construct(
@@ -103,9 +103,9 @@ class Publicacion
     /**
      * Crea un usuario a partir de un array
      */
-    public static function fromArray(array $data): Publicacion
+    public static function fromArray(array $data): Publicaciones
     {
-        return new Publicacion(
+        return new Publicaciones(
             $data['id'] ?? null,
             $data['id_usuario'] ?? '',
             $data['contenido'] ?? "",

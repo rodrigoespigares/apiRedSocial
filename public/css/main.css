@@ -1,3 +1,11 @@
+#main section{
+    margin-top: 5rem;
+    border: 1px solid #333;
+    padding: 2rem;
+}
+#main section:last-child{
+    margin-bottom: 5rem;
+}
 #main button{
     cursor: pointer;
 }

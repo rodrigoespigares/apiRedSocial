@@ -1,22 +1,22 @@
 <?php
     namespace Services;
-    use Repositories\PonenteRepository;
-    class PonenteService{
+    use Repositories\PublicacionesRepository;
+    class PublicacionesService{
         // Creando variable con
-        private PonenteRepository $userRepository;
+        private PublicacionesRepository $userRepository;
         function __construct() {
-            $this->userRepository = new PonenteRepository();
+            $this->userRepository = new PublicacionesRepository();
         }
         /**
-         * Función para obtener todos los ponentes
+         * Función para obtener todos las publicaciones
          * 
-         * @return array con los ponentes
+         * @return array con las publicaciones
          */
         public function allPonentes() :?array {
             return $this->userRepository->findAll();
         }
         /**
-         * Funcion para registrar un ponente
+         * Funcion para registrar una publicacion
          * 
          * @return bool true si se ha registrado false si no se ha registrado
          */
@@ -24,9 +24,9 @@
             return $this->userRepository->registro($data);
         }
         /**
-         * Funcion para registrar un ponente
+         * Funcion para editar una publicacion
          * 
-         * @return bool true si se ha registrado false si no se ha registrado
+         * @return bool true si se ha modificado false si no se ha modificado
          */
         public function edit(string $id, object $data):bool{
             return $this->userRepository->edit($id, $data);
@@ -34,19 +34,19 @@
         /**
          * Función para buscar un ponente por su id
          * 
-         * @param string $id con el id del ponente
+         * @param string $id con el id de la publicacion
          * 
-         * @return array con los datos del ponente
+         * @return array con los datos de la publicacion
          */
         public function find(string $id) :? array{
             return $this->userRepository->find($id);
         }
         /**
-         * Funcion para eliminar un ponente
+         * Funcion para eliminar una publicacion
          * 
-         * @param string $id con el id del ponente a eliminar
+         * @param string $id con el id de la publicacion a eliminar
          * 
-         * @return bool true si se ha registrado false si no se ha registrado
+         * @return bool true si se ha eliminado false si no se ha eliminado
          */
         public function remove(string $id) : bool{
             return $this->userRepository->remove($id);

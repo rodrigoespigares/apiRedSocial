@@ -37,7 +37,7 @@
             $this->mail->addAddress("$email");
             $this->mail->isHTML(true);
             //Establece la línea de asunto.
-            $this->mail->Subject = 'Confirme su cuenta de Cursoria';
+            $this->mail->Subject = 'Confirme su cuenta de Twitagram';
 
             // Reemplaza el cuerpo de texto plano con uno creado manualmente.
             $this->mail->Body = $this->crearHtml($email,$token);

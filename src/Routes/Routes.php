@@ -2,7 +2,7 @@
 
     namespace Routes;
     use Lib\Router;
-    use Controllers\ApiPonenteController;
+    use Controllers\PublicacionesController;
     use Controllers\BaseController;
     use Controllers\AuthController;
     use Controllers\ErrorController;
@@ -43,23 +43,23 @@
 
             /*-*-*-*-*-*-*-*-*-*-* CRUD COMPLETO -*-*-*-*-*-*-*-*-*-*-*-*/
             // CREATE PONENTE
-            Router::add('POST','/ponentes', function (){
-                return (new ApiPonenteController())->create();
+            Router::add('POST','/publicaciones', function (){
+                return (new PublicacionesController())->create();
             });
             // READ PONENTES
-            Router::add('GET','/ponentes', function (){
-                return (new ApiPonenteController())->allPonentes();
+            Router::add('GET','/publicaciones', function (){
+                return (new PublicacionesController())->allPonentes();
             });
-            Router::add('GET','/ponentes/:id', function ($id){
-                return (new ApiPonenteController())->find($id);
+            Router::add('GET','/publicaciones/:id', function ($id){
+                return (new PublicacionesController())->find($id);
             });
             // UPDATE PONENTE
-            Router::add('PUT','/ponentes/:id', function ($id){
-                return (new ApiPonenteController())->edit($id);
+            Router::add('PUT','/publicaciones/:id', function ($id){
+                return (new PublicacionesController())->edit($id);
             });
             // DELETE PONENTE
-            Router::add('DELETE','/ponentes/:id', function ($id){
-                return (new ApiPonenteController())->delete($id);
+            Router::add('DELETE','/publicaciones/:id', function ($id){
+                return (new PublicacionesController())->delete($id);
             });
 
             /*-*-*-*-*-*-*-*-*-*-* ERRORES DE RUTAS -*-*-*-*-*-*-*-*-*-*-*-*/
