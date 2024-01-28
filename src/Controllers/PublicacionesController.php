@@ -3,6 +3,7 @@
     use Services\PublicacionesService;
     use Lib\Pages;
     use Lib\ResponseHttp;
+    use Lib\Security;
     use Models\Publicaciones;
 
     class PublicacionesController{
@@ -17,19 +18,25 @@
          * Función para obtener todos los ponentes
          */
         public function allPonentes():void{
-            ResponseHttp::setHeaders("GET");
-            $result = $this->service->allPonentes();
-            $json = [];
-            if (count($result)>0) {
-                $json["head"]=ResponseHttp::statusMessage(202,count($result));
-                foreach ($result as $value) {
-                   $json["body"][] = array("Id"=>$value->getId(),"Nombre"=>$value->getNombre(),"Apellidos"=>$value->getApellidos(),"Imagen"=>$value->getImagen(),"Tags"=>$value->getTags(),"Redes"=>$value->getRedes(),"Email"=>$value->getEmail());
+            if(Security::validateToken()){
+                ResponseHttp::setHeaders("GET");
+                $result = $this->service->allPonentes();
+                $json = [];
+                if (count($result)>0) {
+                    $json["head"]=ResponseHttp::statusMessage(202,count($result));
+                    foreach ($result as $value) {
+                    $json["body"][] = array("id"=>$value->getId(),"id_usuario"=>$value->getId_usuario(),"contenido"=>$value->getContenido(),"imagen"=>$value->getImagen(),"fecha_publicacion"=>$value->getFecha_publicacion());
+                    }
+                }else{
+                    $json["head"]=ResponseHttp::statusMessage(404,count($result));
+                    $json["body"][]=array();
                 }
+                $this->pages->renderJSON($json);
             }else{
-                $json["head"]=ResponseHttp::statusMessage(404,count($result));
+                $json["head"]=ResponseHttp::statusMessage(500,"El token no es valido es necesario crear otro nuevo");
                 $json["body"][]=array();
+                $this->pages->renderJSON($json);
             }
-            $this->pages->renderJSON($json);
         }
         /**
          * Función para obtener un ponente por su id

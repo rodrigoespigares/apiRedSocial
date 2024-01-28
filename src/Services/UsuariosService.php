@@ -19,16 +19,16 @@
         public function getIdentityId($id) {
             return $this->userRepository->getIdentityId($id);
         }
-        public function addIntento($id) {
-            $this->userRepository->addIntento($id);
-        }
-        public function removeIntento($id) {
-            $this->userRepository->removeIntento($id);
-        }
         public function checkToken($token) : bool {
             return $this->userRepository->checkToken($token);
         }
+        public function checkTokenExp($email){
+            return $this->userRepository->checkTokenExp($email);
+        }
         public function confirmado($email) : bool {
             return $this->userRepository->confirmado($email);
+        }
+        public function changeToken(string $email, string $token) {
+            $this->userRepository->changeToken($email,$token);
         }
     }

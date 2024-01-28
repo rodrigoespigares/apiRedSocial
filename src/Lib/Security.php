@@ -3,8 +3,11 @@
     use Lib\ResponseHttp;
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
+    use Services\UsuariosService;
     use PDOException;
+    
     class Security{
+        
         final public static function claveSecreta() :string {
             return $_ENV['SECRET_KEY'];
         }
@@ -46,6 +49,13 @@
             }catch(PDOException $e){
                 return $response['message'] = json_encode(ResponseHttp::statusMessage(401,"Token expirado o invalido"));
             }
+        }
+        final public static function validateToken() :bool {
+            $service = new UsuariosService();
+            $info = self::getToken();
+            $email = $info->data->email;
+            $value = strtotime($service->checkTokenExp($email)['token_exp']);
+            return $value >= time();
         }
     }
 

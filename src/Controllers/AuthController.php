@@ -1,12 +1,15 @@
 <?php
     namespace Controllers;
 
+use Lib\Pages;
 use Lib\Security;
 use Services\UsuariosService;
 
     class AuthController{
         private UsuariosService $service;
+        private Pages $page;
         public function __construct() {
+            $this->page = new Pages();
             $this->service = new UsuariosService();
         }
         public function pruebas() {
@@ -20,6 +23,14 @@ use Services\UsuariosService;
                 }
             }
             header("Location:".BASE_URL);
+        }
+        public function nuevoToken() {
+            if ($_SESSION['identity'] != null){
+                $token = Security::crearToken(Security::claveSecreta(),["email"=>$_SESSION['identity']['email']]);
+                $this->service->changeToken($_SESSION['identity']['email'],$token);
+                $json['token']=$token;
+                $this->page->renderJSON($json);
+            }
         }
     }
 ?>

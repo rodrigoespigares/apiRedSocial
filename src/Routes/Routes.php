@@ -61,6 +61,10 @@
             Router::add('DELETE','/publicaciones/:id', function ($id){
                 return (new PublicacionesController())->delete($id);
             });
+            /*-*-*-*-*-*-*-*-*-*-* DAR UN NUEVO TOKEN -*-*-*-*-*-*-*-*-*-*-*-*/
+            Router::add('GET','/needToken', function (){
+                return (new AuthController())->nuevoToken();
+            });
 
             /*-*-*-*-*-*-*-*-*-*-* ERRORES DE RUTAS -*-*-*-*-*-*-*-*-*-*-*-*/
             // ERROR 404

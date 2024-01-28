@@ -47,7 +47,11 @@ use Lib\Pages;
                 $error = [];
                 $identity = $this->userService->getIdentity($registro['email']);
                 Usuarios::validationLogin($registro,$error);
+                if($identity['confirmado'] == 0){
+                    $error['confirmacion']="Neceistas confirmar el correo.";
+                }
                 if(empty($error)){
+                    
                     if($identity != null){
                         if(password_verify($registro['password'],$identity['password'])){
                             $_SESSION['identity']=$identity;

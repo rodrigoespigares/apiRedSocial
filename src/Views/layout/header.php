@@ -9,9 +9,10 @@
         <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet"> <!-- Iconos remix icon -->
         <script src="https://kit.fontawesome.com/e161f36ce9.js" crossorigin="anonymous"></script> <!-- Iconos fontawesome -->
         <script src="https://unpkg.com/@phosphor-icons/web"></script> <!-- Iconos ed phosphor icon -->
+        <script src="<?=BASE_URL?>public/js/index.js"></script>
     </head>
     <body id="body">
-    <script src="<?=BASE_URL?>public/js/index.js"></script>
+    
     <header>
         <div>
             <a href="<?=BASE_URL?>"><h1>Twitagram</h1></a>
@@ -33,4 +34,5 @@
             <?php endif; ?>
         </div>
     </header>
+    
     <main>
