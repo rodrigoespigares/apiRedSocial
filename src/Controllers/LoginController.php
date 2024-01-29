@@ -29,7 +29,6 @@ use Lib\Pages;
          */
         public function vLogin(bool $value):?array{
             $registro = $_POST['data'];            
-            
             if (!$value) {
                 
                 $errores = [];
@@ -41,14 +40,14 @@ use Lib\Pages;
                     $this->userService->register($registro);
                     header("Location:".BASE_URL);
                 }else{
-                    $this->pages->render("pages/login/formLogin",["errores"=>$errores,"relleno"=>$registro]);
+                    $this->pages->render("pages/login/formLogin",["errores"=>$errores,"relleno"=>$registro, "isLogin"=>false]);
                 }
             }elseif ($value) {
                 $error = [];
                 $identity = $this->userService->getIdentity($registro['email']);
                 Usuarios::validationLogin($registro,$error);
                 if($identity['confirmado'] == 0){
-                    $error['confirmacion']="Neceistas confirmar el correo.";
+                    $error['confirmacion']="Necesitas confirmar el correo.";
                 }
                 if(empty($error)){
                     
@@ -66,7 +65,6 @@ use Lib\Pages;
                         $this->pages->render("pages/login/formLogin",["error"=>$error,"relleno"=>$registro,"isLogin"=>true]);
                     }
                 }else{
-                    $error['password'] = "Contraseña sin introducir";
                     $this->pages->render("pages/login/formLogin",["error"=>$error,"relleno"=>$registro,"isLogin"=>true]);
                 }
             }   

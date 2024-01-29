@@ -1,0 +1,5 @@
+Me falta verificar todos los datos
+Caducar el token
+Validar todos los tokens
+Comentar
+Revisar put y delete

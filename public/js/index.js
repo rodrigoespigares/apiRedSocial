@@ -79,7 +79,7 @@ window.onload = () => {
                         return response.json();
                     })
                     .then(data => {
-                        console.log(data);
+                        this.respuestaGET = data;
                         this.id_usuario = "";
                         this.contenido = "";
                         this.archivo = "";
@@ -100,7 +100,7 @@ window.onload = () => {
                         return response.json();
                     })
                     .then(data => {
-                        console.log(data);
+                        this.respuestaGET = data;
                         this.id= "";
                         this.id_usuario = "";
                         this.contenido = "";
@@ -129,7 +129,7 @@ window.onload = () => {
                         return response.json();
                     })
                     .then(data => {
-                        console.log(data);
+                        this.respuestaGET = data;
                         this.id= "";
                     })
             },

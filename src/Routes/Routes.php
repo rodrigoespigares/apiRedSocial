@@ -25,11 +25,12 @@
             Router::add('GET','/signup', function (){
                 return (new LoginController())->index(false);
             });
-            Router::add('POST','/vlogin', function (){
-                
-                $action = preg_replace('/' . preg_quote(BASE_URL, '/') . '/', '', $_SERVER['HTTP_REFERER']);
-                $action = trim($action, '/');
-                $value = $action == "login"? true : false;
+            Router::add('POST','/login', function (){
+                $value = true;
+                return (new LoginController())->vLogin($value);
+            });
+            Router::add('POST','/signup', function (){
+                $value = false;
                 return (new LoginController())->vLogin($value);
             });
             Router::add('GET','/logout', function (){
