@@ -9,6 +9,7 @@ window.onload = () => {
               contenido: "",
               fecha: "",
               id_usuario: "",
+              respuestaGET: "",
             }
           },
         methods: {
@@ -37,6 +38,7 @@ window.onload = () => {
                       return data;
                     }
                   });
+                this.respuestaGET="";
             },
             peticionGET(string, token){
                 if(string.includes(":id")){
@@ -52,7 +54,7 @@ window.onload = () => {
                         return response.json();
                     })
                     .then(data => {
-                        console.log(data);
+                        this.respuestaGET = data;
                         this.id= "";
                     })
             },

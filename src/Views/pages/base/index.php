@@ -19,6 +19,9 @@
                     <input type="file" placeholder="imagen" @change="handleFileChange">
                     <input type="text" placeholder="fecha" v-model="fecha">
                 </div>
+                <pre v-if="respuestaGET != ''">
+                    {{ respuestaGET }}
+                </pre>
                 <button @click="peticionToken(item.name, item.method)">Hacer peticion</button>
             <?php endif;?>
             <h4>Respuestas</h4>
