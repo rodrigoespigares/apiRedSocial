@@ -26,3 +26,13 @@ span{
 .delete{
     background-color: lightcoral;
 }
+pre{
+    background-color: #333;
+    padding: 1rem;
+    margin: 2rem 0;
+    color: white;
+    width: min-content;
+    max-height: 25vh;
+    overflow-y: auto;
+    border-radius: 2rem;
+}
