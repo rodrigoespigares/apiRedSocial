@@ -1,7 +1,7 @@
 <section id="main">
     <h2>Documentación de la API REST</h2>
     <p>Twitagram es una api con capacidad de gestión de la base de datos para cursos y gestion de publicaciones devuelto en JSON.</p>
-    <p>¿Quieres diseñar una red social de forma rápdia? Esta es tu api para empeza</p>
+    <p>¿Quieres diseñar una red social de forma rápdia? Esta es tu api para empezar</p>
     <p>Puedes ver más información de los datos en los ejemplos siguientes de la en la aplicación</p>
     <h3>End point</h3>
     <section :id="item.id" v-for="item in endpoints">
@@ -10,7 +10,16 @@
             <p>{{item.description}}</p>
             <h4>Ejemplo:</h4>
             <?php if(isset($_SESSION['identity'])) :?>
-                <button @click="peticion(item.name)">Hacer peticion</button>
+                <div v-if="item.name.includes(':id')">
+                    <input type="text" placeholder="coloque el id" v-model="id">
+                </div>
+                <div v-if="item.method == 'PUT' || item.method == 'POST' ">
+                    <input type="text" placeholder="id_usuario" v-model="id_usuario">
+                    <input type="text" placeholder="contenido" v-model="contenido">
+                    <input type="file" placeholder="imagen" @change="handleFileChange">
+                    <input type="text" placeholder="fecha" v-model="fecha">
+                </div>
+                <button @click="peticionToken(item.name, item.method)">Hacer peticion</button>
             <?php endif;?>
             <h4>Respuestas</h4>
             <table>

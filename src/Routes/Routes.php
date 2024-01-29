@@ -43,22 +43,22 @@
 
             /*-*-*-*-*-*-*-*-*-*-* CRUD COMPLETO -*-*-*-*-*-*-*-*-*-*-*-*/
             // CREATE PONENTE
-            Router::add('POST','/publicaciones', function (){
+            Router::add('POST','/publicacion', function (){
                 return (new PublicacionesController())->create();
             });
             // READ PONENTES
             Router::add('GET','/publicaciones', function (){
                 return (new PublicacionesController())->allPonentes();
             });
-            Router::add('GET','/publicaciones/:id', function ($id){
+            Router::add('GET','/publicacion/:id', function ($id){
                 return (new PublicacionesController())->find($id);
             });
             // UPDATE PONENTE
-            Router::add('PUT','/publicaciones/:id', function ($id){
+            Router::add('PUT','/publicacion/:id', function ($id){
                 return (new PublicacionesController())->edit($id);
             });
             // DELETE PONENTE
-            Router::add('DELETE','/publicaciones/:id', function ($id){
+            Router::add('DELETE','/publicacion/:id', function ($id){
                 return (new PublicacionesController())->delete($id);
             });
             /*-*-*-*-*-*-*-*-*-*-* DAR UN NUEVO TOKEN -*-*-*-*-*-*-*-*-*-*-*-*/

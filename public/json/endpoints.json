@@ -15,10 +15,10 @@
         "show":false,
         "method":"GET",
         "name":"/publicacion/:id",
-        "description":"Obtiene una publicacion en concreto",
+        "description":"Obtiene una publicación en concreto",
         "respuestas":{
-            "202":"Obtiene una publicacion",
-            "404":"No existe la publicacion"
+            "202":"Obtiene una publicación",
+            "404":"No existe la publicación"
         }
     },
     {
@@ -26,20 +26,20 @@
         "show":false,
         "method":"POST",
         "name":"/publicacion",
-        "description":"Crea una nueva publicacion",
+        "description":"Crea una nueva publicación",
         "respuestas":{
-            "202":"Publicacion completadoa",
-            "404":"No se ha completado la publicacion",
-            "500":"No se ha completado la publicacion por errores de validación"
+            "202":"Publicación registrada",
+            "404":"No se ha completado la publicación",
+            "500":"No se ha completado la publicación por errores de validación"
         }
     },
     {
         "id":"delete",
         "method":"DELETE",
         "name":"/publicacion/:id",
-        "description":"Elimina una publicacion.",
+        "description":"Elimina una publicación.",
         "respuestas":{
-            "202":"Elimina la publicacion",
+            "202":"Elimina la publicación",
             "404":"No se puede eliminar esta publicación"
         }
     },
@@ -48,7 +48,7 @@
         "show":false,
         "method":"PUT",
         "name":"/publicacion/:id",
-        "description":"Edita una publicacion.",
+        "description":"Edita una publicación.",
         "respuestas":{
             "202":"Modificación completada",
             "404":"No se ha completado la modificación",

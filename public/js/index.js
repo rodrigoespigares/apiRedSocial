@@ -4,6 +4,11 @@ window.onload = () => {
             return {
               endpoints:[],
               BASE_URL: "http://localhost/apiRedSocial",
+              id:"",
+              archivo: "",
+              contenido: "",
+              fecha: "",
+              id_usuario: "",
             }
           },
         methods: {
@@ -33,34 +38,102 @@ window.onload = () => {
                     }
                   });
             },
-            peticion(string){
-                // token = this.peticionToken();
+            peticionGET(string, token){
+                if(string.includes(":id")){
+                    string = string.replace(':id',this.id);
+                }
                 fetch(this.BASE_URL+string, {
                     method: 'GET',
                     headers:{
                         'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
                     }
                 })
                     .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Error en la petición AJAX');
-                        }
                         return response.json();
                     })
                     .then(data => {
                         console.log(data);
+                        this.id= "";
                     })
-                    .catch(error => {
-                        console.error('Error al hacer la petición AJAX:', error);
-                    });
             },
-            peticionToken(){
+            handleFileChange(event) {
+                this.archivo = event.target.files[0];
+            },
+            peticionPOST(string,token){
+                const jsonData = {
+                    "id_usuario": parseInt(this.id_usuario),
+                    "contenido": this.contenido,
+                    "imagen": this.archivo.name,
+                    "fecha_publicacion": this.fecha
+                  };
+                fetch(this.BASE_URL+string, {
+                    method: 'POST',
+                    headers:{
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body:JSON.stringify(jsonData),
+                })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        this.id_usuario = "";
+                        this.contenido = "";
+                        this.archivo = "";
+                        this.fecha = "";
+                    })
+            },
+            peticionDelete(string, token){
+                if(string.includes(":id")){
+                    string = string.replace(':id',this.id);
+                }
+                fetch(this.BASE_URL+string, {
+                    method: 'DELETE',
+                    headers:{
+                        'Authorization': `Bearer ${token}`,
+                    }
+                })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        this.id= "";
+                        this.id_usuario = "";
+                        this.contenido = "";
+                        this.archivo = "";
+                        this.fecha = "";
+                    })
+            },
+            peticionPut(string, token){
+                const jsonData = {
+                    "id_usuario": parseInt(this.id_usuario),
+                    "contenido": this.contenido,
+                    "imagen": this.archivo.name,
+                    "fecha_publicacion": this.fecha
+                  };
+                if(string.includes(":id")){
+                    string = string.replace(':id',this.id);
+                }
+                fetch(this.BASE_URL+string, {
+                    method: 'PUT',
+                    headers:{
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body:JSON.stringify(jsonData),
+                })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        this.id= "";
+                    })
+            },
+            peticionToken(string,method){
                 fetch(this.BASE_URL+"/needToken", {
                     method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -69,7 +142,21 @@ window.onload = () => {
                     return response.json();
                 })
                 .then(data => {
-                    return data.token;
+                    switch (method){
+                        case 'GET': 
+                            this.peticionGET(string,data.token)
+                            break;
+                        case 'PUT':
+                            this.peticionPut(string,data.token);
+                            break;
+                        case 'DELETE':
+                            this.peticionDelete(string,data.token);
+                            break;
+                        case 'POST':
+                            this.peticionPOST(string,data.token);
+                            break;
+                        default:;
+                    }
                 })
                 .catch(error => {
                     console.error('Error al hacer la petición AJAX:', error);

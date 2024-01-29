@@ -32,13 +32,11 @@
          */
         public function registro( $data){
             try{
-                $this->sql = $this->conection->prepareSQL("INSERT INTO publicaciones(nombre,apellidos,imagen,tags,redes,email) VALUES (:nombre,:apellidos,:imagen,:tags,:redes,:email);");
-                $this->sql->bindValue(":nombre",$data->Nombre);
-                $this->sql->bindValue(":apellidos",$data->Apellidos);
-                $this->sql->bindValue(":imagen",$data->Imagen);
-                $this->sql->bindValue(":tags",$data->Tags);
-                $this->sql->bindValue(":redes",$data->Redes);
-                $this->sql->bindValue(":email",$data->Email);
+                $this->sql = $this->conection->prepareSQL("INSERT INTO publicaciones(id_usuario,contenido,imagen,fecha_publicacion) VALUES (:id_usuario,:contenido,:imagen,:fecha_publicacion);");
+                $this->sql->bindValue(":id_usuario",$data->id_usuario);
+                $this->sql->bindValue(":contenido",$data->contenido);
+                $this->sql->bindValue(":imagen",$data->imagen);
+                $this->sql->bindValue(":fecha_publicacion",$data->fecha_publicacion);
                 $this->sql->execute();
                 $result = true;
             }catch(PDOException $e){
@@ -82,14 +80,12 @@
          */
         public function edit(string $id,object $data){
             try{
-                $this->sql = $this->conection->prepareSQL("UPDATE ponentes SET nombre=:nombre,apellidos=:apellidos,imagen=:imagen,tags =:tags,redes=:redes,email=:email WHERE id=:id;");
+                $this->sql = $this->conection->prepareSQL("UPDATE publicaciones SET id_usuario=:id_usuario,contenido=:contenido,imagen=:imagen,fecha_publicacion =:fecha_publicacion WHERE id=:id;");
                 $this->sql->bindValue(":id",$id);
-                $this->sql->bindValue(":nombre",$data->Nombre);
-                $this->sql->bindValue(":apellidos",$data->Apellidos);
-                $this->sql->bindValue(":imagen",$data->Imagen);
-                $this->sql->bindValue(":tags",$data->Tags);
-                $this->sql->bindValue(":redes",$data->Redes);
-                $this->sql->bindValue(":email",$data->Email);
+                $this->sql->bindValue(":id_usuario",$data->id_usuario);
+                $this->sql->bindValue(":contenido",$data->contenido);
+                $this->sql->bindValue(":imagen",$data->imagen);
+                $this->sql->bindValue(":fecha_publicacion",$data->fecha_publicacion);
                 $this->sql->execute();
                 $result = true;
             }catch(PDOException $e){

@@ -47,7 +47,7 @@
             $json = [];
             if ($result != null) {
                 $json["head"][]=ResponseHttp::statusMessage(202,count($result)>0?1:0);
-                $json["body"][] = array("Id"=>$result['id'],"Nombre"=>$result['nombre'],"Apellidos"=>$result['apellidos'],"Imagen"=>$result['imagen'],"Tags"=>$result['tags'],"Redes"=>$result['redes'],"Email"=>$result['email']);
+                $json["body"][] = array("id"=>$result['id'],"id_usuario"=>$result['id_usuario'],"contenido"=>$result['contenido'],"imagen"=>$result['imagen'],"fecha_publicacion"=>$result['fecha_publicacion']);
             }else{
                 $json["head"][]=ResponseHttp::statusMessage(404,0);
                 $json["body"][]=array();
@@ -84,10 +84,10 @@
             
             if($this->service->remove($id)){
                 $json["head"][]=ResponseHttp::statusMessage(202,1);
-                $json["body"][]= array("Message"=>"Ponente eliminado");
+                $json["body"][]= array("Message"=>"Publicacion eliminiada");
             }else{
                 $json["head"][]=ResponseHttp::statusMessage(404,0);
-                $json["body"][]= array("Message"=>"No se ha eliminado el ponente");
+                $json["body"][]= array("Message"=>"No se ha eliminado la publicacion");
             }
             
             $this->pages->renderJSON($json);
