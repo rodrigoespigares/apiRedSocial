@@ -82,11 +82,12 @@
          */
         public function edit(string $id,object $data){
             try{
+                $value = (isset($data->imagen)? $data->imagen: "");
                 $this->sql = $this->conection->prepareSQL("UPDATE publicaciones SET id_usuario=:id_usuario,contenido=:contenido,imagen=:imagen,fecha_publicacion =:fecha_publicacion WHERE id=:id;");
                 $this->sql->bindValue(":id",$id);
                 $this->sql->bindValue(":id_usuario",$data->id_usuario);
                 $this->sql->bindValue(":contenido",$data->contenido);
-                $this->sql->bindValue(":imagen",$data->imagen);
+                $this->sql->bindValue(":imagen",$value);
                 $this->sql->bindValue(":fecha_publicacion",$data->fecha_publicacion);
                 $this->sql->execute();
                 $rowCount = $this->sql->rowCount();

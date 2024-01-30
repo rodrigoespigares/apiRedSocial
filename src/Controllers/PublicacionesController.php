@@ -32,6 +32,7 @@
                     $json["body"][]=array();
                 }
                 $this->pages->renderJSON($json);
+                Security::caducarToken();
             }else{
                 $json["head"]=ResponseHttp::statusMessage(500,"El token no es válido es necesario crear otro nuevo");
                 $json["body"][]=array();

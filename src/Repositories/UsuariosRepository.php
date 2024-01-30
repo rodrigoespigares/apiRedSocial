@@ -179,6 +179,7 @@ class UsuariosRepository
             $this->sql->bindValue(":token_exp", $time);
             $this->sql->execute();
             $this->sql->closeCursor();
+            $value = null;
         } catch (PDOException $e) {
             $value = false;
         }
