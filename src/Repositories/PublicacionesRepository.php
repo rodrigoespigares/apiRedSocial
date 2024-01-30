@@ -32,10 +32,11 @@
          */
         public function registro( $data){
             try{
+                $value = (isset($data->imagen)? $data->imagen: "");
                 $this->sql = $this->conection->prepareSQL("INSERT INTO publicaciones(id_usuario,contenido,imagen,fecha_publicacion) VALUES (:id_usuario,:contenido,:imagen,:fecha_publicacion);");
                 $this->sql->bindValue(":id_usuario",$data->id_usuario);
                 $this->sql->bindValue(":contenido",$data->contenido);
-                $this->sql->bindValue(":imagen",$data->imagen);
+                $this->sql->bindValue(":imagen",$value);
                 $this->sql->bindValue(":fecha_publicacion",$data->fecha_publicacion);
                 $this->sql->execute();
                 $result = true;
@@ -68,8 +69,9 @@
                 $this->sql = $this->conection->prepareSQL("DELETE FROM publicaciones WHERE id = :id");
                 $this->sql->bindValue(":id", $id);
                 $this->sql->execute();
+                $rowCount = $this->sql->rowCount();
                 $this->sql->closeCursor();
-                $result = true;
+                $result = ($rowCount > 0);
             } catch (PDOException $e) {
                 $result = false;
             }
@@ -87,11 +89,12 @@
                 $this->sql->bindValue(":imagen",$data->imagen);
                 $this->sql->bindValue(":fecha_publicacion",$data->fecha_publicacion);
                 $this->sql->execute();
-                $result = true;
+                $rowCount = $this->sql->rowCount();
+                $this->sql->closeCursor();
+                $result = ($rowCount > 0);
             }catch(PDOException $e){
                 $result = false;
             }
-            $this->sql->closeCursor();
             $this->sql = null;
             return $result;
         }

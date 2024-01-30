@@ -31,4 +31,7 @@
         public function changeToken(string $email, string $token) {
             $this->userRepository->changeToken($email,$token);
         }
+        public function caducarTokenExp(string $email) {
+            $this->userRepository->caducarToken($email);
+        }
     }

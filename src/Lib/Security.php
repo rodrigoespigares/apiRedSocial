@@ -22,7 +22,7 @@
             $time = time();
             $token = array(
                 "iay"=>$time,
-                "exp"=>$time + 3600,
+                "exp"=>$time + 2300,
                 "data"=>$data
             );
 
@@ -53,9 +53,18 @@
         final public static function validateToken() :bool {
             $service = new UsuariosService();
             $info = self::getToken();
-            $email = $info->data->email;
-            $value = strtotime($service->checkTokenExp($email)['token_exp']);
-            return $value >= time();
+            if(isset($info->data->email)){
+                $email = $info->data->email;
+                $value = strtotime($service->checkTokenExp($email)['token_exp']);
+                return $value >= time();
+            }else{
+                return false;
+            }    
+        }
+        final public static function caducarToken() {
+            $service = new UsuariosService();
+            $info = self::getToken();
+            $service->caducarTokenExp($info->data->email);
         }
     }
 

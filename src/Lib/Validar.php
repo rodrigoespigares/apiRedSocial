@@ -3,10 +3,6 @@
     namespace Lib;
     use DateTime;
     class Validar{
-        function __construct()
-        {
-            
-        }
         /**
          * Función para comprobar que el string del parámetro coincida con el patron.
          *
@@ -17,6 +13,12 @@
         {
                 // Patrón de validación
                 $patron = "/^([áúíéóñÁÉÍÓÚÑa-zA-Z0-9.º\s]*)$/";
+                return preg_match($patron, $texto);
+        }
+        public static function son_numeros(string $texto): bool
+        {
+                // Patrón de validación
+                $patron = "/^([0-9]+)$/";
                 return preg_match($patron, $texto);
         }
         /**
@@ -52,14 +54,14 @@
          */
         public static function validarFecha(string $fecha): bool
         {
-                $d = DateTime::createFromFormat('Y-m-d', $fecha);
+                $d = DateTime::createFromFormat('Y-m-d H:i:s', $fecha);
                 if ($d) {
                 $currentYear = (int)date('Y');
                 $year = (int)$d->format('Y');
                 if ($year > $currentYear) {
                         return false;
                 }
-                return $d->format('Y-m-d') === $fecha;
+                return $d->format('Y-m-d H:i:s') === $fecha;
                 } else {
                 return false;
                 }

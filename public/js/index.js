@@ -68,6 +68,7 @@ window.onload = () => {
                     "imagen": this.archivo.name,
                     "fecha_publicacion": this.fecha
                   };
+                  console.log(JSON.stringify(jsonData));
                 fetch(this.BASE_URL+string, {
                     method: 'POST',
                     headers:{

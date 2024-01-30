@@ -116,25 +116,23 @@ class Publicaciones
     ## VALIDAR
     public static function validation(object $data, array &$errores): array
     {
-        ## Nombre
-        if (!empty($data->Nombre) && !Validar::son_letras($data->Nombre)) {
-            $errores['nombre'] = "Nombre tiene caracteres extraños";
+        ## id_usuario
+        if (empty($data->id_usuario)) {
+            $errores['id_usuario'] = "Es obligatorio";
+        }elseif(!Validar::son_numeros($data->id_usuario)){
+            $errores['id_usuario'] = "Debe ser un numero";
         }
-        ## Apellidos
-        if (!empty($data->Apellidos) && !Validar::son_letras($data->Apellidos)) {
-            $errores['apellidos'] = "Apellidos tiene caracteres extraños";
+        ## Contenido
+        if (empty($data->contenido)) {
+            $errores['contenido'] = "Contenido obligatorio";
+        }elseif(!Validar::son_letras($data->contenido)){
+            $errores['contenido'] = "Caracteres invalidos";
         }
-        # Tags
-        if (!empty($data->Tags) && !Validar::son_letras($data->Tags)){
-            $errores['tags'] = "Las etiquetas tienen caracteres extraños";
-        }
-        # Redes
-        if (!empty($data->Redes) && !Validar::son_letras($data->Redes)){
-            $errores['redes'] = "Redes tienen caracteres extraños";
-        }
-        ## Email
-        if (!empty($data->Email) && !Validar::esEmail($data->Email)){
-            $errores['email'] = "Las etiquetas tienen caracteres extraños";
+        ## Fecha
+        if (empty($data->fecha_publicacion)){
+            $errores['fecha_publicación'] = "Debes colocar la fecha de publicacion";
+        }elseif(!Validar::validarFecha($data->fecha_publicacion)){
+            $errores['fecha_publicación'] = "Formato incorrecto";
         }
         return $errores;
     }

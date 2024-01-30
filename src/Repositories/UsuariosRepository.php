@@ -171,4 +171,18 @@ class UsuariosRepository
 
         return $value;
     }
+    public function caducarToken(string $email):? string {
+        try {
+            $time = date('Y-m-d H:i:s', time() - 6000);
+            $this->sql = $this->conection->prepareSQL("UPDATE usuarios SET token_exp = :token_exp WHERE email = :email;");
+            $this->sql->bindValue(":email", $email);
+            $this->sql->bindValue(":token_exp", $time);
+            $this->sql->execute();
+            $this->sql->closeCursor();
+        } catch (PDOException $e) {
+            $value = false;
+        }
+
+        return $value;
+    }
 }
