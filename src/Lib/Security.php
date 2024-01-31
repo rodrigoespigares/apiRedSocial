@@ -9,16 +9,28 @@
     
     class Security{
         
+        /**
+         * Función para obtener la clave secreta del .env
+         */
         final public static function claveSecreta() :string {
             return $_ENV['SECRET_KEY'];
         }
+        /**
+         * Función para encriptar la password
+         */
         final public  static function encriptarPassw(string $passw){
             $opciones = ['cost' => 12];
             return password_hash($passw,PASSWORD_BCRYPT, $opciones);
         }
+        /**
+         * Función para validar la password
+         */
         final public static function validaPassw(string $passw, string $passwhash) : bool {
             return password_verify($passw, $passwhash);
         }
+        /**
+         * Función para crear el token con un tiempo de 2300 segundos desde el momento de la creación
+         */
         final public static function crearToken(string $key, array $data) :string {
             $time = time();
             $token = array(
@@ -29,6 +41,9 @@
 
             return JWT::encode($token,$key,"HS256");
         }
+        /**
+         * Función para obtener el token de la cabecera
+         */
         final public static function getToken(){
             $header = apache_request_headers();
             if(!isset($header['Authorization'])){
@@ -43,7 +58,11 @@
                 return $response['message'] = json_encode(ResponseHttp::statusMessage(401,"Token expirado o invalido"));
             }
         }
-        final public static function returnToken($token) {
+        /**
+         * Función para devolver el token decoficado
+         * 
+         */
+        final public static function returnToken(string $token) {
             
             try{
                 $decodeToken = JWT::decode($token, new Key(Security::claveSecreta(),'HS256'));
@@ -52,6 +71,9 @@
                 return false;
             }
         }
+        /**
+         * Funcón para validar el token
+         */
         final public static function validateToken() :bool {
             $service = new UsuariosService();
             $info = self::getToken();
@@ -63,6 +85,9 @@
                 return false;
             }    
         }
+        /**
+         * Función para caducar un token
+         */
         final public static function caducarToken() {
             $service = new UsuariosService();
             $info = self::getToken();
