@@ -12,7 +12,7 @@
          * 
          * @return array con las publicaciones
          */
-        public function allPonentes() :?array {
+        public function allPublicaciones() :?array {
             return $this->reposiroty->findAll();
         }
         /**

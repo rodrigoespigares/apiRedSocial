@@ -2,6 +2,8 @@
 // Uso la clase monedero llamandola con su espacion de nombres
 namespace Controllers;
 
+use Lib\Pages;
+
 /**
  * Clase para controlar errores
  */
@@ -10,14 +12,12 @@ class ErrorController
     /**
      * Creando la funcion para probocar el error 404
      *
-     * @return string
+     * @return void
      */
-    public static function show_err404(): string
+    public static function show_err404(): void
     {
-        return "<p>La pagina no existe</p>";
-    }
-    public static function show_err504(): string
-    {
-        return "<p>La pagina no existe (ANTES)</p>";
+        $page = new Pages();
+
+        $page->render("pages/error/404");
     }
 }

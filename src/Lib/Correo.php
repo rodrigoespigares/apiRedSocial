@@ -13,7 +13,7 @@
          */
         public function sendMail($email, $token) {
             $this->mail->isSMTP();
-            $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $this->mail->SMTPDebug = 0;
             $this->mail->Host = 'smtp.gmail.com';
             $this->mail->Port = 465;
             $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
@@ -44,9 +44,9 @@
 
             //Envia el mensaje, checkea los errores
             if (!$this->mail->send()) {
-                echo 'Mailer Error: ' . $this->mail->ErrorInfo;
+                echo '';
             } else {
-                echo 'Message sent!';
+                echo '';
             }
         }
         /**
@@ -62,7 +62,7 @@
             </head>
             <body>";
             $html.= "<h2>Hola $email</h2>";
-            $html.="<h2>Confirma su cuenta:</h2>";
+            $html.="<p>Esto es un correo de verificacion y por tanto deberá hacer click en la parte inferior para verificar su cuenta. ¡Gracias!</p>";
             $html.="<a href='".BASE_URL."confirmar/$token'>Verificar correo</a>";
             $html.="</body></html>";
             return $html;

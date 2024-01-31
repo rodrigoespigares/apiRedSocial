@@ -43,22 +43,22 @@
             });
 
             /*-*-*-*-*-*-*-*-*-*-* CRUD COMPLETO -*-*-*-*-*-*-*-*-*-*-*-*/
-            // CREATE PONENTE
+            // CREATE Publicacion
             Router::add('POST','/publicacion', function (){
                 return (new PublicacionesController())->create();
             });
-            // READ PONENTES
+            // READ Publicaciones
             Router::add('GET','/publicaciones', function (){
-                return (new PublicacionesController())->allPonentes();
+                return (new PublicacionesController())->allPublicaciones();
             });
             Router::add('GET','/publicacion/:id', function ($id){
                 return (new PublicacionesController())->find($id);
             });
-            // UPDATE PONENTE
+            // UPDATE Publicacion
             Router::add('PUT','/publicacion/:id', function ($id){
                 return (new PublicacionesController())->edit($id);
             });
-            // DELETE PONENTE
+            // DELETE Publicacion
             Router::add('DELETE','/publicacion/:id', function ($id){
                 return (new PublicacionesController())->delete($id);
             });

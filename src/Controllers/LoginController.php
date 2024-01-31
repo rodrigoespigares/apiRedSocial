@@ -1,12 +1,15 @@
 <?php
 namespace Controllers;
 use Services\UsuariosService;
+use Controllers\AuthController;
 use Models\Usuarios;
 use Lib\Pages;
+use Lib\Security;
 
     class LoginController{
         // Creamos atributo de la clase UsuarioService
         private UsuariosService $userService;
+        private AuthController $auth;
         // Creamos el atributo de la clase Usuario
         // Creamos la variable de la case Pages
         private Pages $pages;
@@ -16,6 +19,7 @@ use Lib\Pages;
         public function __construct(){
             # Instanciamos las clases
             $this->userService = new UsuariosService();
+            $this->auth= new AuthController();
             $this->pages = new Pages();
         }
         /**
@@ -48,6 +52,10 @@ use Lib\Pages;
                 Usuarios::validationLogin($registro,$error);
                 if($identity['confirmado'] == 0){
                     $error['confirmacion']="Necesitas confirmar el correo.";
+                    if(!Security::returnToken($identity['token'])){
+                        $error['confirmacion']="Necesitas confirmar el correo. Revisa tu bandeja de entrada";
+                        $this->auth->nuevoTokenConfirmacion($identity['email']);
+                    }
                 }
                 if(empty($error)){
                     

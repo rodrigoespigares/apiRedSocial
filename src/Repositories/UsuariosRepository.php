@@ -109,14 +109,14 @@ class UsuariosRepository
 
         return $usuario;
     }
-    public function checkToken($token): bool
+    public function checkToken($token): string | bool
     {
         try {
             $this->sql = $this->conection->prepareSQL("SELECT email FROM usuarios WHERE token = :token;");
             $this->sql->bindValue(":token", $token);
             $this->sql->execute();
+            $value = isset($this->sql->fetch(PDO::FETCH_ASSOC)['email'])?$this->sql->fetch(PDO::FETCH_ASSOC)['email']:false;
             $this->sql->closeCursor();
-            $value = true;
         } catch (PDOException $e) {
             $value = false;
         }
@@ -180,6 +180,24 @@ class UsuariosRepository
             $this->sql->execute();
             $this->sql->closeCursor();
             $value = null;
+        } catch (PDOException $e) {
+            $value = false;
+        }
+
+        return $value;
+    }
+    public function changeTokenConfirmacion(string $email, string $token)
+    {
+        try {
+            $time = date('Y-m-d H:i:s', time() + 2300);
+            $this->sql = $this->conection->prepareSQL("UPDATE usuarios SET token = :token, token_exp = :token_exp WHERE email = :email;");
+            $this->sql->bindValue(":email", $email);
+            $this->sql->bindValue(":token", $token);
+            $this->sql->bindValue(":token_exp", $time);
+            $this->sql->execute();
+            $this->sql->closeCursor();
+            $this->correo->sendMail($email, $token);
+            $value = true;
         } catch (PDOException $e) {
             $value = false;
         }

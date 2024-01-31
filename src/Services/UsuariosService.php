@@ -19,7 +19,7 @@
         public function getIdentityId($id) {
             return $this->userRepository->getIdentityId($id);
         }
-        public function checkToken($token) : bool {
+        public function checkToken($token) :? string {
             return $this->userRepository->checkToken($token);
         }
         public function checkTokenExp($email){
@@ -33,5 +33,8 @@
         }
         public function caducarTokenExp(string $email) {
             $this->userRepository->caducarToken($email);
+        }
+        public function changeTokenConfirmacion(string $email, string $token) {
+            $this->userRepository->changeTokenConfirmacion($email,$token);
         }
     }

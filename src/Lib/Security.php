@@ -3,6 +3,7 @@
     use Lib\ResponseHttp;
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
+    use Firebase\JWT\ExpiredException;
     use Services\UsuariosService;
     use PDOException;
     
@@ -43,11 +44,12 @@
             }
         }
         final public static function returnToken($token) {
+            
             try{
                 $decodeToken = JWT::decode($token, new Key(Security::claveSecreta(),'HS256'));
                 return $decodeToken;
-            }catch(PDOException $e){
-                return $response['message'] = json_encode(ResponseHttp::statusMessage(401,"Token expirado o invalido"));
+            }catch(ExpiredException $e){
+                return false;
             }
         }
         final public static function validateToken() :bool {

@@ -17,10 +17,10 @@
         /**
          * Función para obtener todas las publicaciones
          */
-        public function allPonentes():void{
+        public function allPublicaciones():void{
             if(Security::validateToken()){
                 ResponseHttp::setHeaders("GET");
-                $result = $this->service->allPonentes();
+                $result = $this->service->allPublicaciones();
                 $json = [];
                 if (count($result)>0) {
                     $json["head"]=ResponseHttp::statusMessage(202,count($result));
@@ -56,6 +56,7 @@
                     $json["body"][]=array();
                 }
                 $this->pages->renderJSON($json);
+                Security::caducarToken();
             }else{
                 $json["head"]=ResponseHttp::statusMessage(500,"El token no es válido es necesario crear otro nuevo");
                 $json["body"][]=array();
@@ -84,6 +85,7 @@
                     $json["body"][]= array("Message"=>"No se ha completado el registro por errores de validación","errores"=>$errores);
                 }
                 $this->pages->renderJSON($json);
+                Security::caducarToken();
             }else{
                 $json["head"]=ResponseHttp::statusMessage(500,"El token no es válido es necesario crear otro nuevo");
                 $json["body"][]=array();
@@ -104,6 +106,7 @@
                     $json["body"][]= array("Message"=>"No se ha eliminado la publicación");
                 }
                 $this->pages->renderJSON($json);
+                Security::caducarToken();
             }else{
                 $json["head"]=ResponseHttp::statusMessage(500,"El token no es válido es necesario crear otro nuevo");
                 $json["body"][]=array();
@@ -132,6 +135,7 @@
                     $json["body"][]= array("Message"=>"No se ha completado la modificación por errores de validación","errores"=>$errores);
                 }
                 $this->pages->renderJSON($json);
+                Security::caducarToken();
             }else{
                 $json["head"]=ResponseHttp::statusMessage(500,"El token no es válido es necesario crear otro nuevo");
                 $json["body"][]=array();
