@@ -28,18 +28,17 @@ window.onload = () => {
                         console.error('Error al hacer la petición AJAX:', error);
                     });
             },
-            click(id){
-                change = this.endpoints.filter(data => data.id == id);
-                change[0].show==false?change[0].show=true:change[0].show=false;
+            click(id) {
                 this.endpoints = this.endpoints.map(data => {
-                    if (data.id === id) {
-                      return change[0];
-                    } else {
-                      return data;
-                    }
-                  });
-                this.respuestaGET="";
-            },
+                  if (data.id === id) {
+                    data.show = !data.show;
+                  } else {
+                    data.show = false;
+                  }
+                  return data;
+                });
+                this.respuestaGET = "";
+              },
             peticionGET(string, token){
                 if(string.includes(":id")){
                     string = string.replace(':id',this.id);
