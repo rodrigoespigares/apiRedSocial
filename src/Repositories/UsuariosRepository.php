@@ -19,25 +19,6 @@ class UsuariosRepository
         $this->conection = new DataBase();
         $this->correo = new Correo();
     }
-    public function findAll(): ?array
-    {
-        $this->conection->querySQL("SELECT * FROM usuarios;");
-        return $this->extractAll();
-    }
-    public function extractAll(): ?array
-    {
-        $usuarios = [];
-        try {
-            $this->conection->querySQL("SELECT * FROM usuarios");
-            $usuariosData = $this->conection->allRegister();
-            foreach ($usuariosData as $usuarioData) {
-                $usuarios[] = Usuarios::fromArray($usuarioData);
-            }
-        } catch (PDOException) {
-            $usuarios = null;
-        }
-        return $usuarios;
-    }
     /**
      * Método de registro de usuarios.
      *
@@ -76,7 +57,16 @@ class UsuariosRepository
         $this->sql = null;
         return $result;
     }
-    public function getIdentity($email)
+    /**
+     * Método de obtener datos de usuario
+     * 
+     * Este método se utiliza para obtener todos los datos de un usuario mediante su email
+     * 
+     * @param string $email con el email del usuario;
+     * 
+     * @return array|string array con los datos del usuario o string con el error
+     */
+    public function getIdentity(string $email) :array|string
     {
         try {
             $this->sql = $this->conection->prepareSQL("SELECT * FROM usuarios WHERE email = :email");
@@ -91,7 +81,16 @@ class UsuariosRepository
 
         return $usuario;
     }
-    public function checkToken($token): string | bool
+    /**
+     * Método para validar un token
+     * 
+     * Este método se utiliza para validar un token
+     * 
+     * @param string $email con el email del usuario
+     * 
+     * @return string|bool string con el email del usuario o bool false si no hay o hay un error
+     */
+    public function checkToken(string $token): string | bool
     {
         try {
             $this->sql = $this->conection->prepareSQL("SELECT email FROM usuarios WHERE token = :token;");
@@ -104,7 +103,12 @@ class UsuariosRepository
         }
         return $value;
     }
-    public function checkTokenExp($email)
+    /**
+     * Método para verificar la fecha de expiracion del token en la base de datos
+     * 
+     * @param string $email con el email del usuario
+     */
+    public function checkTokenExp(string $email)
     {
         try {
 
@@ -120,7 +124,17 @@ class UsuariosRepository
 
         return $value;
     }
-    public function confirmado($email): bool
+    /**
+     * Método para confirmar un usuario.
+     *
+     * Este método se utiliza para marcar un usuario como confirmado en la base de datos.
+     * Actualiza el campo 'confirmado' a 1 y establece la fecha de expiración del token a 2300 segundos antes de la fecha actual.
+     * Si la operación es exitosa, devuelve true. En caso de error, captura la excepción PDOException y devuelve false.
+     *
+     * @param string $email El email del usuario a confirmar.
+     * @return bool Devuelve true si la operación fue exitosa, false en caso contrario.
+     */
+    public function confirmado(string $email): bool
     {
         try {
             $time = date('Y-m-d H:i:s', time() - 2300);
@@ -136,7 +150,18 @@ class UsuariosRepository
 
         return $value;
     }
-    public function changeToken(string $email, string $token)
+    /**
+     * Método para cambiar el token.
+     *
+     * Este método se utiliza para marcar un usuario como confirmado en la base de datos.
+     * Actualiza el campo 'token' con el nuevo token y establece la fecha de expiración del token a 2300 segundos después de la fecha actual.
+     * Si la operación es exitosa, devuelve true. En caso de error, captura la excepción PDOException y devuelve false.
+     *
+     * @param string $email El email del usuario a confirmar.
+     * @param string $token con el nuevo token del usuario
+     * @return bool Devuelve true si la operación fue exitosa, false en caso contrario.
+     */
+    public function changeToken(string $email, string $token):bool
     {
         try {
             $time = date('Y-m-d H:i:s', time() + 2300);
@@ -153,6 +178,16 @@ class UsuariosRepository
 
         return $value;
     }
+    /**
+     * Método para cambiar la fecha de expiracion del token.
+     *
+     * Este método se utiliza para marcar un usuario como confirmado en la base de datos.
+     * Actualiza el campo la fecha de expiración del token a 6000 segundos antes de la fecha actual.
+     * 
+     *
+     * @param string $email El email del usuario a confirmar.
+     *
+     */
     public function caducarToken(string $email):? string {
         try {
             $time = date('Y-m-d H:i:s', time() - 6000);
@@ -168,7 +203,18 @@ class UsuariosRepository
 
         return $value;
     }
-    public function changeTokenConfirmacion(string $email, string $token)
+    /**
+     * Método para cambiar el token de validación.
+     *
+     * Este método se utiliza para marcar un usuario como confirmado en la base de datos.
+     * Actualiza el campo 'token' con el nuevo token y establece la fecha de expiración del token a 2300 segundos después de la fecha actual.
+     * Si la operación es exitosa, devuelve true. En caso de error, captura la excepción PDOException y devuelve false.
+     *
+     * @param string $email El email del usuario a confirmar.
+     * @param string $token con el nuevo token del usuario
+     * @return bool Devuelve true si la operación fue exitosa, false en caso contrario.
+     */
+    public function changeTokenConfirmacion(string $email, string $token):bool
     {
         try {
             $time = date('Y-m-d H:i:s', time() + 2300);
