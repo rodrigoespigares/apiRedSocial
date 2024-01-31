@@ -15,10 +15,16 @@ class AuthController
         $this->page = new Pages();
         $this->service = new UsuariosService();
     }
-    public function pruebas()
-    {
-        var_dump(Security::crearToken(Security::claveSecreta(), ["id" => 3]));
-    }
+    /**
+     * Verifica el token proporcionado.
+     *
+     * Esta función toma un token como entrada, lo verifica usando la clase Security y luego realiza acciones.
+     * Si el token es válido, confirma el email asociado al token y redirige al usuario a la URL base.
+     * Si el token no es válido, genera un nuevo token de confirmación y redirige al usuario a la página de token después de 3 segundos.
+     *
+     * @param string $token El token a verificar.
+     * @return void
+     */
     public function verificate($token): void
     {
         $myToken = Security::returnToken($token);
@@ -34,6 +40,13 @@ class AuthController
             $this->page->render("pages/base/token");
         }
     }
+    /**
+     * Crea un token
+     * 
+     * Esta función genera un nuevo token con el email del usuario y la muestra por pantalla con el renderJSON en un formato legile para JavaScript
+     * 
+     * @return void
+     */
     public function nuevoToken()
     {
         if ($_SESSION['identity'] != null) {
@@ -43,7 +56,15 @@ class AuthController
             $this->page->renderJSON($json);
         }
     }
-    public function nuevoTokenConfirmacion($email)
+    /**
+     * Crea un token
+     * 
+     * Esta función genera un nuevo token con el email del usuario y para poder validar el correo que se le pasa por parámetro
+     * 
+     * @param string $email con el email del usuario
+     * @return void
+     */
+    public function nuevoTokenConfirmacion(string $email)
     {
 
         $token = Security::crearToken(Security::claveSecreta(), ["email" => $email]);

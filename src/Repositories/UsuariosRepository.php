@@ -91,24 +91,6 @@ class UsuariosRepository
 
         return $usuario;
     }
-    /**
-     * Funcion para obtener un usuario por id
-     */
-    public function getIdentityId($id)
-    {
-        try {
-            $this->sql = $this->conection->prepareSQL("SELECT * FROM usuarios WHERE id = :id");
-            $this->sql->bindValue(":id", $id);
-            $this->sql->execute();
-            $usuarioData = $this->sql->fetch(PDO::FETCH_ASSOC);
-            $this->sql->closeCursor();
-            $usuario = $usuarioData ?: null;
-        } catch (PDOException $e) {
-            $usuario = $e->getMessage();
-        }
-
-        return $usuario;
-    }
     public function checkToken($token): string | bool
     {
         try {

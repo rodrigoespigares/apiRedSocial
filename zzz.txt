@@ -1,2 +1,0 @@
-Comentar
-Cuando un usuario le caduca la verificación, mandar el correo de nuevo

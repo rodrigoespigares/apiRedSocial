@@ -14,10 +14,6 @@
             Router::add('GET','/', function (){
                 return (new BaseController())->index();
             });
-            // PROBAR
-            Router::add('GET','/pruebas', function (){
-                return (new AuthController())->pruebas();
-            });
             /*-*-*-*-*-*-*-*-*-*-* LOGIN Y REGISTRO -*-*-*-*-*-*-*-*-*-*-*-*/
             Router::add('GET','/login', function (){
                 return (new LoginController())->index(true);

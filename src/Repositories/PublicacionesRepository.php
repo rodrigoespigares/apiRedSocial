@@ -10,6 +10,9 @@
         function __construct(){
             $this->conection = new DataBase();
         }
+        /**
+         * Función para extraer todas las publicaciones
+         */
         public function findAll():? array {
             $this->conection->querySQL("SELECT * FROM publicaciones;");
             return $this->extractAll();
@@ -28,7 +31,7 @@
             return $datos;
         }
         /**
-         * Funcion para crear una publicacion con los parametros $nombre,$apellidos,$dni,$email,$usuario,$contrasena
+         * Función para crear una publicacion con los parametros $nombre,$apellidos,$dni,$email,$usuario,$contrasena
          */
         public function registro( $data){
             try{
@@ -48,9 +51,9 @@
             return $result;
         }
         /**
-         * Funcion para obtener un ponente por id
+         * Función para obtener una publicacion por id
          */
-        public function find($id) {
+        public function find(string $id) {
             try {
                 $this->sql = $this->conection->prepareSQL("SELECT * FROM publicaciones WHERE id = :id");
                 $this->sql->bindValue(":id", $id);
@@ -64,7 +67,14 @@
         
             return $usuario;
         }
-        public function remove($id) :bool {
+        /**
+         * Función para eliminar una publicación
+         * 
+         * 
+         * @param string $id con el id de la publicacion a borrar
+         * @return bool
+         */
+        public function remove(string $id) :bool {
             try {
                 $this->sql = $this->conection->prepareSQL("DELETE FROM publicaciones WHERE id = :id");
                 $this->sql->bindValue(":id", $id);

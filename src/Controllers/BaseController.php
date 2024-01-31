@@ -9,7 +9,12 @@ use Lib\Security;
         {
             $this->pages = new Pages();
         }
-        public function index() {
+        /**
+         * Carga de la pantalla principal
+         * 
+         * @return void
+         */
+        public function index():void {
             $this->pages->render("pages/base/index");
         }
     }
