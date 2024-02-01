@@ -21,19 +21,19 @@
             <div>
                 <label for="email">Email</label>
                 <input type="text" name="data[email]" id="email">
-                <p class="err"><?= isset($error['email']) ? $error['email'] : "" ?></p>
+                <p class="err"><?= isset($errores['email']) ? $errores['email'] : "" ?></p>
             </div>
             <div>
                 <label for="contrasena">Contraseña</label>
                 <input type="password" name="data[password]" id="contrasena">
-                <p class="err"><?= isset($error['password']) ? $error['password'] : "" ?></p>
+                <p class="err"><?= isset($errores['password']) ? $errores['password'] : "" ?></p>
             </div>
             <div>
                 <label for="contrasena">Repite tu contraseña</label>
                 <input type="password" name="data[password2]" id="contrasena">
-                <p class="err"><?= isset($error['password2']) ? $error['password2'] : "" ?></p>
+                <p class="err"><?= isset($errores['password2']) ? $errores['password2'] : "" ?></p>
             </div>
-            <p class="err"><?= isset($error['confirmacion']) ? $error['confirmacion'] : "" ?></p>
+            <p class="err"><?= isset($errores['confirmacion']) ? $errores['confirmacion'] : "" ?></p>
             <button type="submit">Registro</button>
         </form>
     <?php endif;?>

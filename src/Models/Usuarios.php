@@ -3,6 +3,7 @@
 namespace Models;
 
 use Lib\Validar;
+use Services\UsuariosService;
 
 class Usuarios
 {
@@ -186,6 +187,7 @@ class Usuarios
     }
     public static function validation(array $data, array &$errores): array
     {
+        $service = new UsuariosService();
         ##############
         #  PASSWORD  #
         ##############
@@ -198,26 +200,15 @@ class Usuarios
         if (strlen($data['password']) <= 7) {
             $errores['password'] = "Contraseña debe tener más de 8 caracteres";
         }
-        ################
-        #    NOMBRE    #
-        ################
-        if (!empty($data['nombre']) && !Validar::son_letras($data['nombre'])) {
-            $errores['nombre'] = "Nombre tiene caracteres extraños";
-        }
-        ###################
-        #    APELLIDOS    #
-        ###################
-        if (!empty($data['apellidos']) && !Validar::son_letras($data['apellidos'])) {
-            $errores['apellidos'] = "Apellidos tiene caracteres extraños";
-        }
         ###############
         #    EMAIL    #
         ###############
         if (empty($data['email'])) {
             $errores['email'] = "Email no puede quedar vacío";
         }
-        ###### CHECK MAIL NO ESTA ######
-
+        if(!$service->checkMail($data['email'])){
+            $errores['email'] = "Email ya registrado";
+        }
 
         return $errores;
     }
@@ -227,8 +218,10 @@ class Usuarios
         if (empty($pass)) {
             $errores['password'] = "Contraseña obligatoria";
         }
-        if (!empty($email) && !Validar::esEmail($email)) {
-            $errores['email'] = "Email tiene caracteres extraños";
+        if (empty($email)) {
+            $errores['email'] = "Email obligatorio";
+        }else if(!Validar::esEmail($email)){
+            $errores['email'] = "Parece que eso no es un email";
         }
         return $errores;
     }

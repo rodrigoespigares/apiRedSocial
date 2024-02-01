@@ -232,4 +232,26 @@ class UsuariosRepository
 
         return $value;
     }
+    /**
+     * Método para verificar la existencia de un correo electrónico.
+     *
+     * Este método se utiliza para comprobar si un correo electrónico dado ya está registrado en la base de datos.
+     * Si el correo electrónico existe, devuelve false. Si no existe, devuelve true.
+     * En caso de error, captura la excepción PDOException y devuelve true.
+     *
+     * @param string $email El correo electrónico a verificar.
+     * @return bool Devuelve false si el correo electrónico ya existe, true en caso contrario.
+     */
+    public function checkMail(string $email) : bool {
+        try {
+            $this->sql = $this->conection->prepareSQL("SELECT email FROM usuarios WHERE email = :email;");
+            $this->sql->bindValue(":email", $email);
+            $this->sql->execute();
+            $value = isset($this->sql->fetch(PDO::FETCH_ASSOC)['email'])?false:true;
+            $this->sql->closeCursor();
+        } catch (PDOException $e) {
+            $value = true;
+        }
+        return $value;
+    }
 }
