@@ -7,7 +7,7 @@
         "description":"Obtiene todas las publicaciones de la base de datos.",
         "respuestas":{
             "202":"Lista completa",
-            "404":"No hay ponentes"
+            "404":"No hay publicaciones"
         }
     },
     {

@@ -1,8 +1,8 @@
 <section id="main">
     <h2>Documentación de la API REST</h2>
-    <p>Twitagram es una api con capacidad de gestión de la base de datos para cursos y gestion de publicaciones devuelto en JSON.</p>
-    <p>¿Quieres diseñar una red social de forma rápdia? Esta es tu api para empezar</p>
-    <p>Puedes ver más información de los datos en los ejemplos siguientes de la en la aplicación</p>
+    <p>Twitagram es una API con capacidad de gestión de la base de datos para cursos y gestión de publicaciones devueltas en JSON.</p>
+    <p>¿Quieres diseñar una red social de forma rápida? Esta es tu API para empezar.</p>
+    <p>Puedes ver más información de los datos en los ejemplos siguientes de la en la aplicación.</p>
     <h3>End point</h3>
     <section :id="item.id" v-for="item in endpoints">
         <h4><span :class="item.method">{{item.method}}</span> {{item.name}} <button @click="click(item.id)"><i class="ph ph-caret-down"></i></button></h4>
@@ -22,7 +22,7 @@
                 <pre v-if="respuestaGET != ''">
                     {{ respuestaGET }}
                 </pre>
-                <button @click="peticionToken(item.name, item.method)">Hacer peticion</button>
+                <button @click="peticionToken(item.name, item.method)">Hacer petición</button>
             <?php endif;?>
             <h4>Respuestas</h4>
             <table>

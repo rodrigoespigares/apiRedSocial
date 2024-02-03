@@ -48,17 +48,18 @@ use Lib\Security;
                 }
             }elseif ($value) {
                 $error = [];
-                $identity = $this->userService->getIdentity($registro['email']);
+                
                 Usuarios::validationLogin($registro,$error);
-                if($identity['confirmado'] == 0){
-                    $error['confirmacion']="Necesitas confirmar el correo.";
-                    if(!Security::returnToken($identity['token'])){
-                        $error['confirmacion']="Necesitas confirmar el correo. Revisa tu bandeja de entrada";
-                        $this->auth->nuevoTokenConfirmacion($identity['email']);
-                    }
-                }
+                
                 if(empty($error)){
-                    
+                    $identity = $this->userService->getIdentity($registro['email']);
+                    if($identity['confirmado'] == 0){
+                        $error['confirmacion']="Necesitas confirmar el correo.";
+                        if(!Security::returnToken($identity['token'])){
+                            $error['confirmacion']="Necesitas confirmar el correo. Revisa tu bandeja de entrada";
+                            $this->auth->nuevoTokenConfirmacion($identity['email']);
+                        }
+                    }
                     if($identity != null){
                         if(password_verify($registro['password'],$identity['password'])){
                             $_SESSION['identity']=$identity;

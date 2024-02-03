@@ -55,4 +55,12 @@
         public function changeTokenConfirmacion(string $email, string $token) {
             $this->userRepository->changeTokenConfirmacion($email,$token);
         }
+        /**
+         * Comprobar si el email esta registrado
+         * 
+         * @return false si esta registrado y true si no lo esta  
+         */
+        public function checkMail(string $email) : bool {
+            return $this->userRepository->checkMail($email);
+        }
     }
