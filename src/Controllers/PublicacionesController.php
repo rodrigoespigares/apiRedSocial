@@ -92,6 +92,19 @@
                 $this->pages->renderJSON($json);
             }
         }
+        public function saveArchivo() {
+            if (isset($_FILES['archivo'])) {
+                $archivo = $_FILES['archivo'];
+                $carpetaDestino = 'img/subidas';
+
+                // Verificar si la carpeta existe, si no, crearla
+                if (!file_exists($carpetaDestino)) {
+                    mkdir($carpetaDestino, 0777, true);
+                }
+                $destino = $carpetaDestino . $archivo['name'];
+                move_uploaded_file($archivo['tmp_name'], $destino);
+            }
+        }
         /**
          * Función para eliminar una publicacion
          */

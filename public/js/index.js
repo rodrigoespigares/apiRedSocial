@@ -78,12 +78,30 @@ window.onload = () => {
                         return response.json();
                     })
                     .then(data => {
+                        if(this.archivo!=null){
+                            this.mandarArchivo();
+                            console.log("mandado");
+                        }
                         this.respuestaGET = data;
                         this.id_usuario = "";
                         this.contenido = "";
                         this.archivo = "";
                         this.fecha = "";
                     })
+            },
+            mandarArchivo(){
+                const formData = new FormData();
+                formData.append('archivo', this.archivo);
+                fetch(this.BASE_URL+'/guardarArchivo', {
+                    method: 'POST',
+                    body: formData,
+                  }).then(response => response.text())
+                  .then(data => {
+                    console.log('Archivo enviado correctamente', data);
+                  })
+                  .catch(error => {
+                    console.error('Error al enviar el archivo: ', error);
+                  });
             },
             peticionDelete(string, token){
                 if(string.includes(":id")){

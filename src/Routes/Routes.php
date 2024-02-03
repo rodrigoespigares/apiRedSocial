@@ -43,6 +43,9 @@
             Router::add('POST','/publicacion', function (){
                 return (new PublicacionesController())->create();
             });
+            Router::add('POST','/guardarArchivo', function (){
+                return (new PublicacionesController())->saveArchivo();
+            });
             // READ Publicaciones
             Router::add('GET','/publicaciones', function (){
                 return (new PublicacionesController())->allPublicaciones();
