@@ -80,7 +80,6 @@ window.onload = () => {
                     .then(data => {
                         if(this.archivo!=null){
                             this.mandarArchivo();
-                            console.log("mandado");
                         }
                         this.respuestaGET = data;
                         this.id_usuario = "";
@@ -146,8 +145,15 @@ window.onload = () => {
                         return response.json();
                     })
                     .then(data => {
+                        if(this.archivo!=null){
+                            this.mandarArchivo();
+                        }
                         this.respuestaGET = data;
                         this.id= "";
+                        this.id_usuario = "";
+                        this.contenido = "";
+                        this.archivo = "";
+                        this.fecha = "";
                     })
             },
             peticionToken(string,method){

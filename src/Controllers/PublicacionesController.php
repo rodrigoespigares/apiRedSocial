@@ -95,7 +95,7 @@
         public function saveArchivo() {
             if (isset($_FILES['archivo'])) {
                 $archivo = $_FILES['archivo'];
-                $carpetaDestino = 'img/subidas';
+                $carpetaDestino = 'img/subidas/';
 
                 // Verificar si la carpeta existe, si no, crearla
                 if (!file_exists($carpetaDestino)) {
